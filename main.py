@@ -6,15 +6,13 @@
 import time
 #time.sleep(20)
 
+## 
+# NOTE :    Could NOT make this work with univcorn... cv2 does not load... 
+#           therefore testing with inference_gfpgan or directly in docker
+## 
+
 import sys
-import os
 sys.path.insert(0, '../osais_ai_base')
-
-print("from dir: "+os.getcwd()) 
-print(os.environ) 
-
-import cv2
-
 from main_fastapi import app
 
 ## For debuging VAI locally ...

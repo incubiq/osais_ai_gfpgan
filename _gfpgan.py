@@ -3,11 +3,6 @@
 ##      Entry of the AI_GFPGAN prog
 ##
 
-import sys
-import os
-subdirectory = os.path.join(os.path.dirname(__file__), 'ai')
-sys.path.append(subdirectory)
-
 from ai.runai import fnRun
 
 ##
