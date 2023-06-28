@@ -1,0 +1,15 @@
+.vscode/
+*__pycache__*
+_input/*
+_output/*
+
+readme.txt
+
+ai/inputs/
+ai/tests/
+gfpgan/*
+*.pth
+
+env_vai
+env_docker_vai
+env_docker_local

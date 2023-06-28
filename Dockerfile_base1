@@ -1,0 +1,12 @@
+##
+##      To build the AI_FACEX docker image
+##
+
+# base stuff
+FROM yeepeekoo/public:ai_base_osais
+
+# install requirements
+RUN pip3 install facexlib==0.3.0
+
+# run as a server
+CMD ["uvicorn", "main_fastapi:app", "--host", "0.0.0.0", "--port", "5000"]
