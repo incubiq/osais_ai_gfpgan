@@ -7,6 +7,9 @@ import os
 import sys
 import argparse
 
+sys.path.insert(0, './ai/gfpgan')
+sys.path.insert(0, './ai')
+
 import argparse
 import numpy as np
 import os
