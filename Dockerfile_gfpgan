@@ -27,6 +27,9 @@ RUN mkdir -p ./ai
 RUN chown -R root:root ./ai
 COPY ./ai ./ai
 
+# latest of osais base
+COPY ./_temp ./
+
 # copy OSAIS -> AI
 COPY ./gfpgan ./gfpgan
 COPY ./gfpgan.json .
