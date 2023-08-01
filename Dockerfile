@@ -33,7 +33,6 @@ COPY ./_temp ./
 # copy OSAIS -> AI
 COPY ./gfpgan ./gfpgan
 COPY ./gfpgan.json .
-COPY ./_gfpgan.py .
 
 # overload config with those default settings
 ENV ENGINE=gfpgan

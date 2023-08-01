@@ -6,6 +6,7 @@
 import os
 import sys
 import argparse
+from datetime import datetime
 
 sys.path.insert(0, './ai/gfpgan')
 sys.path.insert(0, './ai')
@@ -23,7 +24,25 @@ gDefault_res = 2
 gMax_res = 4
 basedirectory = os.path.dirname(__file__)
 
-
+## WARMUP Data
+def getWarmupData(_id):
+    try:
+        import time
+        from werkzeug.datastructures import MultiDict
+        ts=int(time.time())
+        sample_args = MultiDict([
+            ('-u', 'test_user'),
+            ('-uid', str(ts)),
+            ('-t', _id),
+            ('-cycle', '0'),
+            ('-o', 'warmup.jpg'),
+            ('-filename', 'warmup.jpg')
+        ])
+        return sample_args
+    except:
+        print("Could not call warm up!\r\n")
+        return None
+    
 def _run(args):
         ## call GFPGAN libs
     try:
@@ -140,8 +159,12 @@ def _run(args):
             else:
                 extension = args.ext
 
-            save_restore_path = os.path.join(args.outdir, f'{basenameOut}_0.{extension}')
+            _resFile=f'{basenameOut}_0.{extension}'
+            save_restore_path = os.path.join(args.outdir, _resFile)
             imwrite(restored_img, save_restore_path)
+            return _resFile
+        
+        return None
 
     except Exception as err:
         print('CRITICAL: Could not run this AI')
@@ -168,13 +191,27 @@ def fnRun(_args):
     vq_parser.add_argument('--ext',type=str,default='auto',help='Image extension. Options: auto | jpg | png, auto means using the same extension as inputs. Default: auto')
     vq_parser.add_argument('-w', '--weight', type=float, default=0.5, help='Adjustable weights for CodeFormer.')
 
+    beg_date = datetime.utcnow()
+    _resFile=None
     try:
         args = vq_parser.parse_args(_args)
         print(args)
-        _run(args)
+        _resFile=_run(args)
 
     except Exception as err:
         print("\r\nCRITICAL ERROR!!!")
         raise err
 
     sys.stdout.flush()
+      
+    ## return output
+    end_date = datetime.utcnow()
+    aFile=[]
+    if _resFile!=None:
+        aFile=[_resFile]
+    return {
+        "beg_date": beg_date,
+        "end_date": end_date,
+        "mCost": 1.05,            ## cost multiplier of this AI
+        "aFile": aFile
+    }

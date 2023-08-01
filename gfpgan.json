@@ -4,7 +4,7 @@
     "location": "",
     "ip": "0.0.0.0",
     "port": 5012,
-    "version": "1.0.3",
+    "version": "1.0.6",
     "description": "Image Utility",
     "github": "https://github.com/TencentARC/GFPGAN",
     "requiresGPU": true,
@@ -16,7 +16,10 @@
         "isMandatory": true,
         "type": "string",
         "default": null,
-        "accept": {"$max": 2048},
+        "accept": {
+            "$max": 2048,
+            "$ext": [".png", ".jpg", ".jpeg"]
+        },
         "ui": {
             "title": "Image input",
             "widget": "uiSelectPicture",
@@ -36,7 +39,7 @@
         "ui": {
             "title": "Output resolution",
             "widget": "uiMultiToggle",
-            "unit": "px",            
+            "unit": "x",            
             "column": 2
         }
     }, {
