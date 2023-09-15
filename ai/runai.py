@@ -24,6 +24,17 @@ gDefault_res = 2
 gMax_res = 4
 basedirectory = os.path.dirname(__file__)
 
+## where to save the user profile?
+def fnGetUserdataPath(_username):
+    _path=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    DEFAULT_PROFILE_DIR = os.path.join(_path, '_profile')
+    USER_PROFILE_DIR = os.path.join(DEFAULT_PROFILE_DIR, _username)
+    return {
+        "location": USER_PROFILE_DIR,
+        "voice": False,
+        "picture": True
+    }
+
 ## WARMUP Data
 def getWarmupData(_id):
     try:
@@ -188,7 +199,7 @@ def fnRun(_args):
     vq_parser.add_argument('--suffix', type=str, default=None, help='Suffix of the restored faces')
     vq_parser.add_argument('--only_center_face', action='store_true', help='Only restore the center face')
     vq_parser.add_argument('--aligned', action='store_true', help='Input are aligned faces')
-    vq_parser.add_argument('--ext',type=str,default='auto',help='Image extension. Options: auto | jpg | png, auto means using the same extension as inputs. Default: auto')
+    vq_parser.add_argument('--ext',type=str,default='jpg',help='Image extension. Options: auto | jpg | png, auto means using the same extension as inputs. Default: auto')
     vq_parser.add_argument('-w', '--weight', type=float, default=0.5, help='Adjustable weights for CodeFormer.')
 
     beg_date = datetime.utcnow()

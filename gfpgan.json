@@ -4,25 +4,29 @@
     "location": "",
     "ip": "0.0.0.0",
     "port": 5012,
-    "version": "1.0.6",
+    "version": "1.1.0",
     "description": "Image Utility",
     "github": "https://github.com/TencentARC/GFPGAN",
     "requiresGPU": true,
     "isFree": false,
-    "default_cost": 1000,
+    "default_cost": 3200,
     "params": [{
         "in": "url_upload",
         "out": "-filename",
         "isMandatory": true,
         "type": "string",
-        "default": null,
-        "accept": {
-            "$max": 2048,
-            "$ext": [".png", ".jpg", ".jpeg"]
+        "value": {
+            "default": null
         },
         "ui": {
             "title": "Image input",
             "widget": "uiSelectPicture",
+            "filterExt": [".png", ".jpg", ".jpeg"],
+            "maxWidth": 1024,
+            "maxHeight": 1024,
+            "minWidth": 256,
+            "minHeight": 256,
+            "maxKb": 1024,
             "column": 1
         }
     }, {
@@ -30,12 +34,16 @@
         "out": "-s",
         "isMandatory": true,
         "type": "int",
-        "default": 1,
-        "accept": {
-            "$in":[1, 2, 4], 
+        "value": {
+            "default": 1,
+            "set":[1, 2, 4], 
             "display":["x1", "x2", "x4"]
         },
-        "freeAccess": {"$max": 1},
+        "freeAccess": {
+            "default": 1,
+            "set":[1], 
+            "display":["x1"]
+        },
         "ui": {
             "title": "Output resolution",
             "widget": "uiMultiToggle",
@@ -47,30 +55,40 @@
         "out": "-w",
         "isMandatory": false,
         "type": "float",
-        "default": 0.5
+        "value": {
+            "default": 0.5
+        }
     }, {
         "in": "ver",
         "out": "-v",
         "isMandatory": false,
         "type": "string",
-        "default": "1.3"
+        "value": {
+            "default": "1.3"
+        }
     }, {
         "in": "output",
         "out": "-o",
         "isMandatory": true,
         "type": "function",
-        "default": "$output_uid.ext"
+        "value": {
+            "default": "$output_uid.ext"
+        }
     }, {
         "in": "idir",
         "out": "-idir",
         "isMandatory": false,
         "type": "string",
-        "default": "./_input/"
+        "value": {
+            "default": "./_input/"
+        }
     }, {
         "in": "odir",
         "out": "-odir",
         "isMandatory": false,
         "type": "string",
-        "default": "./_output/"
+        "value": {
+            "default": "./_output/"
+        }
     }]
 }
